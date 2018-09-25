@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from './Header/Header';
 import Navigation from './Navigation/Navigation';
 import { Posts } from './Posts/Posts';
+import { SinglePost } from './SinglePost/SinglePost';
 import Inicio from './Inicio/Inicio';
 
 export class Router extends Component {
@@ -33,6 +34,14 @@ export class Router extends Component {
             <Switch>
                 <Route exact path="/" render={Inicio} />
                 <Route exact path="/posts" render={() => { return (<Posts posts={this.state.posts} />) }} />
+                <Route exact path="/post/:id" render={ (props) => {
+                    let id = props.location.pathname.replace('/post/', '');
+                    const posts = this.state.posts;
+                    let filtro = posts.filter( post => ( post.id == id ))
+                    return(
+                        <SinglePost post={filtro[0]}/>
+                    )
+                }} />
             </Switch>
         </div>
             
