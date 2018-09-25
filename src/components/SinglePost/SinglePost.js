@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class SinglePost extends Component {
 
@@ -21,6 +22,9 @@ export class SinglePost extends Component {
                         </blockquote>
                     </div>
                 </div>
+                <div className="top">
+                    <Link to={'/posts'} className="btn btn-danger">Atras</Link>
+                </div>
             </React.Fragment>
         )
 
@@ -32,6 +36,7 @@ export class SinglePost extends Component {
             <div className="row top">
                 {this.mostrarPost(this.props)}
             </div>
+            
         )
     }
 }
