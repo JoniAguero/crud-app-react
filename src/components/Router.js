@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header/Header';
 import Navigation from './Navigation/Navigation';
+import { Posts } from './Posts/Posts';
 
 export class Router extends Component {
 
@@ -25,13 +26,14 @@ export class Router extends Component {
     render() {
         return (
         <BrowserRouter>
+        <div>
+            <Header />
+            <Navigation />
             <Switch>
-                <div>
-                    <Header />
-                    <Navigation />
-                </div>
-                {/* <Route /> */}
+                <Route exact path="/" render={() => { return (<Posts posts={this.state.posts} /> )}} />
             </Switch>
+        </div>
+            
         </BrowserRouter>
         )
     }

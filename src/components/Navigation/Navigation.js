@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 const Navigation = () => {
 
     return (
-        <nav className="row top">
+        <nav className="row top text-center">
             <Link to={'/posts'} className="col-6">
-                <h2 className="text-center"> All Post </h2>
+                <span> All Post </span>
             </Link>
             <Link to={'/new'} className="col-6"> 
-                <h2 className="text-center"> New Post </h2>
+                <span> New Post </span>
             </Link>
         </nav>
     )
