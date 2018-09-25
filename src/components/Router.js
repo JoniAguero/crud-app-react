@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from './Header/Header';
 import Navigation from './Navigation/Navigation';
 import { Posts } from './Posts/Posts';
+import Inicio from './Inicio/Inicio';
 
 export class Router extends Component {
 
@@ -30,7 +31,8 @@ export class Router extends Component {
             <Header />
             <Navigation />
             <Switch>
-                <Route exact path="/" render={() => { return (<Posts posts={this.state.posts} /> )}} />
+                <Route exact path="/" render={Inicio} />
+                <Route exact path="/posts" render={() => { return (<Posts posts={this.state.posts} />) }} />
             </Switch>
         </div>
             
