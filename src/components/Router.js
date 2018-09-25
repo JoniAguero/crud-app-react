@@ -25,6 +25,19 @@ export class Router extends Component {
         })
     }
 
+    eliminarPost = (id) => {
+        axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+            .then( res => {
+                if (res.status === 200){
+                    const posts = [...this.state.posts];
+                    let resultado = posts.filter(post => post.id !== id);
+                    this.setState({
+                        posts: resultado
+                    })
+                }
+            });
+    }
+
     render() {
         return (
         <BrowserRouter>
@@ -33,11 +46,12 @@ export class Router extends Component {
             <Navigation />
             <Switch>
                 <Route exact path="/" render={Inicio} />
-                <Route exact path="/posts" render={() => { return (<Posts posts={this.state.posts} />) }} />
+                        <Route exact path="/posts" render={() => { return (<Posts posts={this.state.posts} 
+                               eliminarPost={this.eliminarPost} />) }} />
                 <Route exact path="/post/:id" render={ (props) => {
                     let id = props.location.pathname.replace('/post/', '');
                     const posts = this.state.posts;
-                    let filtro = posts.filter( post => ( post.id == id ))
+                    let filtro = posts.filter( post => ( post.id === Number(id) ))
                     return(
                         <SinglePost post={filtro[0]}/>
                     )

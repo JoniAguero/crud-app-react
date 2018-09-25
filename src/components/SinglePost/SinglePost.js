@@ -6,7 +6,7 @@ export class SinglePost extends Component {
 
         if(!props.post) return null;
 
-        const { body, id, title, userId } = this.props.post;
+        const { body, id, title } = this.props.post;
 
         return (
             <React.Fragment>

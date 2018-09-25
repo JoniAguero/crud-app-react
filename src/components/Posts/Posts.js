@@ -6,7 +6,7 @@ export class Posts extends Component {
     return (
       <div className="col-12">
         <h2 className="text-center"> Posts </h2>
-        <Listado posts={this.props.posts}/>
+        <Listado eliminarPost={this.props.eliminarPost} posts={this.props.posts}/>
       </div>
     )
   }

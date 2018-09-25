@@ -13,7 +13,7 @@ export class Post extends Component {
         <td>
             <Link to={`/post/${id}`} className="btn btn-primary">Ver</Link>
             <button to={`/post/${id}`} className="btn btn-success">Editar</button>
-            <button to={`/post/${id}`} className="btn btn-danger">Eliminar</button>
+            <button to={`/post/${id}`} className="btn btn-danger" onClick={ () => this.props.eliminarPost(id)} >Eliminar</button>
         </td>
       </tr>
     )
