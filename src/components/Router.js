@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert2';
 
 import Header from './Header/Header';
 import Navigation from './Navigation/Navigation';
@@ -54,6 +55,12 @@ export class Router extends Component {
                         this.setState(prevState => ({
                             posts: [...prevState.posts, newPost]
                         }))
+                        swal({
+                            type: 'Tarea Cumplida!',
+                            title: 'Se ha creado el post.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
                     }
                 });
         }
