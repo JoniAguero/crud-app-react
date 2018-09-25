@@ -39,7 +39,7 @@ export class Post extends Component {
         <td>{title}</td>
         <td>
             <Link to={`/post/${id}`} className="btn btn-primary">Ver</Link>
-            <button to={`/post/${id}`} className="btn btn-success">Editar</button>
+            <Link to={`/editar/${id}`} className="btn btn-success">Editar</Link>
             <button to={`/post/${id}`} className="btn btn-danger" onClick={ this.confirmarEliminacion } >Eliminar</button>
         </td>
       </tr>

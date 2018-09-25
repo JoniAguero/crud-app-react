@@ -10,6 +10,7 @@ import Inicio from './Inicio/Inicio';
 import { Posts } from './Posts/Posts';
 import { SinglePost } from './SinglePost/SinglePost';
 import { Formulario } from './Formulario/Formulario';
+import { EditarPost } from './EditarPost/EditarPost';
 
 export class Router extends Component {
 
@@ -56,8 +57,35 @@ export class Router extends Component {
                             posts: [...prevState.posts, newPost]
                         }))
                         swal({
-                            type: 'Tarea Cumplida!',
-                            title: 'Se ha creado el post.',
+                            type: 'success',
+                            title: 'Se ha creado el post!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                });
+        }
+    }
+
+    editarPost = (postActualizado) => {
+        if (postActualizado.title !== '' && postActualizado.body !== '') {
+            axios.put(`https://jsonplaceholder.typicode.com/posts/${postActualizado.id}`, { postActualizado })
+                .then(res => { 
+                    if (res.status === 200) {
+                        // Obtengo el ID
+                        let idPost = res.data.id;
+                        // Copia de Post
+                        const posts = [...this.state.posts];
+                        // Obtengo el post que voy a editar en el array
+                        const postEditar = posts.findIndex(post => post.id === idPost);
+                        // Reemplazo lo que hay en el arreglo de posts, en la posicion postEditar por el contenido de postActualizado
+                        posts[postEditar] = postActualizado;
+                        this.setState({
+                            posts
+                        })
+                        swal({
+                            type: 'success',
+                            title: 'Se ha editado el post!',
                             showConfirmButton: false,
                             timer: 1500
                         })
@@ -74,9 +102,9 @@ export class Router extends Component {
             <Navigation />
             <Switch>
                 <Route exact path="/" render={Inicio} />
-                        <Route exact path="/crear" render={() => {
-                            return (<Formulario crearPost={this.crearPost} />)
-                        }} />
+                <Route exact path="/crear" render={() => {
+                    return (<Formulario crearPost={this.crearPost} />)
+                }} />
                 <Route exact path="/posts" render={() => { return (<Posts posts={this.state.posts} 
                         eliminarPost={this.eliminarPost} />) }} />
                 <Route exact path="/post/:id" render={ (props) => {
@@ -87,7 +115,15 @@ export class Router extends Component {
                         <SinglePost post={filtro[0]}/>
                     )
                 }} />
-                
+                <Route exact path="/editar/:id" render={(props) => {
+                    let id = props.location.pathname.replace('/editar/', '');
+                    const posts = this.state.posts;
+                    let filtro = posts.filter(post => (post.id === Number(id)))
+                    return (
+                        <EditarPost editarPost={this.editarPost} post={filtro[0]} />
+                    )
+                }} />
+        
             </Switch>
         </div>
             
