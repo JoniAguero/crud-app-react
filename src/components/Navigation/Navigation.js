@@ -8,7 +8,7 @@ const Navigation = () => {
             <Link to={'/posts'} className="col-6">
                 <span> All Post </span>
             </Link>
-            <Link to={'/new'} className="col-6"> 
+            <Link to={'/crear'} className="col-6"> 
                 <span> New Post </span>
             </Link>
         </nav>

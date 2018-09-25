@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+
 import Header from './Header/Header';
 import Navigation from './Navigation/Navigation';
+import Inicio from './Inicio/Inicio';
+
 import { Posts } from './Posts/Posts';
 import { SinglePost } from './SinglePost/SinglePost';
-import Inicio from './Inicio/Inicio';
+import { Formulario } from './Formulario/Formulario';
 
 export class Router extends Component {
 
@@ -38,6 +41,24 @@ export class Router extends Component {
             });
     }
 
+    crearPost = (post) => {
+        if(post.title !== '' && post.body !== '') {
+            axios.post(`https://jsonplaceholder.typicode.com/posts/`, {post})
+                .then( res => {
+                    if(res.status === 201) {
+                        // Obtengo el ID
+                        let idPost = {id: res.data.id}
+                        // Uno el ID con el Post (vienen separado)
+                        const newPost = Object.assign({}, res.data.post, idPost)
+                        // Agrego un nuevo Post
+                        this.setState(prevState => ({
+                            posts: [...prevState.posts, newPost]
+                        }))
+                    }
+                });
+        }
+    }
+
     render() {
         return (
         <BrowserRouter>
@@ -46,8 +67,11 @@ export class Router extends Component {
             <Navigation />
             <Switch>
                 <Route exact path="/" render={Inicio} />
-                        <Route exact path="/posts" render={() => { return (<Posts posts={this.state.posts} 
-                               eliminarPost={this.eliminarPost} />) }} />
+                        <Route exact path="/crear" render={() => {
+                            return (<Formulario crearPost={this.crearPost} />)
+                        }} />
+                <Route exact path="/posts" render={() => { return (<Posts posts={this.state.posts} 
+                        eliminarPost={this.eliminarPost} />) }} />
                 <Route exact path="/post/:id" render={ (props) => {
                     let id = props.location.pathname.replace('/post/', '');
                     const posts = this.state.posts;
@@ -56,6 +80,7 @@ export class Router extends Component {
                         <SinglePost post={filtro[0]}/>
                     )
                 }} />
+                
             </Switch>
         </div>
             
